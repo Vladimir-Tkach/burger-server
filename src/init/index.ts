@@ -1,5 +1,4 @@
-import mongo from "mongodb";
-const client = mongo.MongoClient;
+import mongoose from "mongoose";
 
 const url = "mongodb://localhost:27017/burger";
 
@@ -9,15 +8,18 @@ class Connect {
     this.url = url1;
   }
 
-  public init() {
-    client.connect(this.url, { useUnifiedTopology: true }, (err, db) => {
-      if (err) {
-        throw err;
-      }
+  public async init() {
+    await mongoose.connect(
+      this.url,
+      { useUnifiedTopology: true, useNewUrlParser: true },
+      (err) => {
+        if (err) {
+          console.log("err: ", err);
+        }
 
-      console.log("DB Connect!");
-      db.close();
-    });
+        console.log(console.log("DB Connect!"));
+      }
+    );
   }
 }
 

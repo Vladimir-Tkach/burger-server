@@ -5,13 +5,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
+const body_parser_1 = __importDefault(require("body-parser"));
 const init_1 = require("./init");
 dotenv_1.default.config();
 const app = express_1.default();
 const port = process.env.SERVER_PORT;
 init_1.DBConnect.init();
+app.use(body_parser_1.default.json());
 app.get("/", (req, res) => {
     res.send("AAA!!!");
+});
+app.post("/create", (req, res) => {
+    res.end(JSON.stringify(req.body));
+    // createTest();
 });
 app.listen(port, () => {
     // tslint:disable-next-line:no-console
